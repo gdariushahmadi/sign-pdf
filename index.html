@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#6d28d9" id="theme-color-meta" />
+  <link rel="manifest" href="/manifest.json" />
+  <title data-i18n="app_title">Sign/Stamp PDF</title>
+  <!-- Modern Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+</head>
+
+<body>
+  <div id="app">
+    <header class="navbar glass-effect fade-in">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+          stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-edit-3">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        <h1 data-i18n="app_name">Doc Signer</h1>
+      </div>
+      <div class="actions">
+        <button id="lang-btn" class="btn secondary-btn icon-btn" title="Change Language / تغییر زبان">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="feather feather-globe">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </button>
+        <button id="reset-btn" class="btn secondary-btn hidden" data-i18n="new_document">New Document</button>
+        <button id="download-btn" class="btn primary-btn disabled" disabled data-i18n="download_btn">Download
+          File</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Setup Section: Upload PDF and Stamp -->
+      <section id="setup-section" class="setup-container animate-slide-up">
+        <div class="card glass-effect upload-card">
+          <h2 class="card-title" data-i18n="step_1">1. Choose Files</h2>
+          <div class="upload-wrapper">
+
+            <div class="upload-box" id="pdf-upload-box" tabindex="0">
+              <input type="file" id="pdf-upload" accept="application/pdf" title="Select PDF" />
+              <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <p id="pdf-filename" data-i18n="select_pdf">Select your PDF file</p>
+            </div>
+
+            <div class="upload-box" id="stamp-upload-box" tabindex="0">
+              <input type="file" id="stamp-upload" accept="image/png, image/jpeg" title="Select Stamp" />
+              <div class="icon-container" id="stamp-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+              <p id="stamp-filename" data-i18n="select_stamp">Stamp/Signature Image (PNG or JPG)</p>
+              <img id="stamp-preview" class="hidden" src="" alt="Stamp preview" data-i18n-alt="stamp_preview_alt" />
+            </div>
+
+          </div>
+          <button id="start-stamping-btn" class="btn primary-btn full-width disabled mt-4" disabled
+            data-i18n="start_stamping">Start Stamping</button>
+        </div>
+      </section>
+
+      <!-- PDF Reader workspace -->
+      <section id="workspace-section" class="workspace hidden">
+        <div class="toolbar glass-effect fade-in">
+          <p class="instruction" data-i18n="instruction_add">Click on pages to add stamps.</p>
+          <div class="pagination">
+            <button id="prev-page-btn" class="btn secondary-btn icon-btn" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-chevron-left rtl-flip">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <span class="page-info"><span data-i18n="page">Page</span> <span id="page-num"
+                class="dir-ltr-inline">0</span> <span data-i18n="of">of</span> <span id="page-count"
+                class="dir-ltr-inline">0</span></span>
+            <button id="next-page-btn" class="btn secondary-btn icon-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-chevron-right rtl-flip">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+          <div class="zoom-controls">
+            <button id="zoom-out-btn" class="btn secondary-btn icon-btn" title="Zoom Out"
+              data-i18n-title="zoom_out">-</button>
+            <span id="zoom-level" class="dir-ltr-inline">100%</span>
+            <button id="zoom-in-btn" class="btn secondary-btn icon-btn" title="Zoom In"
+              data-i18n-title="zoom_in">+</button>
+          </div>
+        </div>
+
+        <div class="canvas-wrapper">
+          <div class="canvas-container shadow-effect" id="canvas-container">
+            <canvas id="pdf-render"></canvas>
+            <!-- visual stamps will be appended here -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden" data-i18n="success_toast">Operation Successful</div>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(err => {
+          console.log('SW registration failed: ', err);
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
