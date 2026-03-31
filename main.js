@@ -95,7 +95,8 @@ const i18n = {
     stamp_settings_title: "Stamp Settings",
     preview_bg: "Preview",
     reset_bg: "Reset",
-    change_stamp: "Change Stamp"
+    change_stamp: "Change Stamp",
+    add_new_stamp: "Add New Stamp"
   },
   fa: {
     app_title: "سند یار — امضا و مُهر زدن روی PDF و تصاویر",
@@ -187,7 +188,8 @@ const i18n = {
     stamp_settings_title: "تنظیمات مُهر",
     preview_bg: "پیش‌نمایش",
     reset_bg: "بازنشانی",
-    change_stamp: "تغییر مُهر"
+    change_stamp: "تغییر مُهر",
+    add_new_stamp: "افزودن مُهر جدید"
   }
 };
 
@@ -670,6 +672,43 @@ function attachEventListeners() {
 
   el('reset-btn')?.addEventListener('click', resetWorkspace);
 
+  async function handleSelectedStampFile(file, { openModal = false } = {}) {
+    if (!file) return;
+    stampType = file.type;
+    stampFileNameStr = file.name;
+    const fn = el('stamp-filename');
+    if (fn) fn.textContent = file.name;
+
+    const preview = el('stamp-preview');
+    if (preview) preview.classList.remove('hidden');
+
+    const buffer = await file.arrayBuffer();
+    stampImageBytes = new Uint8Array(buffer);
+
+    const blob = new Blob([stampImageBytes], { type: stampType });
+    const tempUrl = URL.createObjectURL(blob);
+    if (preview) preview.src = tempUrl;
+
+    saveStampToMemory(file);
+    const dataUrl = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (evt) => resolve(evt.target.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    activateStamp(dataUrl, file.name);
+    addToStampLibrary(dataUrl, file.name);
+    renderWorkspaceStampList();
+    checkReady();
+
+    if (openModal) {
+      openStampModal();
+    }
+
+    URL.revokeObjectURL(tempUrl);
+  }
+
   el('pdf-upload')?.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -696,38 +735,8 @@ function attachEventListeners() {
 
   el('stamp-upload')?.addEventListener('change', async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      stampType = file.type;
-      stampFileNameStr = file.name;
-      const fn = el('stamp-filename');
-      if (fn) fn.textContent = file.name;
-
-      const preview = el('stamp-preview');
-      if (preview) preview.classList.remove('hidden');
-
-      const buffer = await file.arrayBuffer();
-      stampImageBytes = new Uint8Array(buffer);
-
-      const blob = new Blob([stampImageBytes], { type: stampType });
-      const tempUrl = URL.createObjectURL(blob);
-      if (preview) preview.src = tempUrl;
-
-      saveStampToMemory(file);
-      const dataUrl = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (evt) => resolve(evt.target.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-      activateStamp(dataUrl, file.name);
-      addToStampLibrary(dataUrl, file.name);
-      checkReady();
-
-      // Open stamp settings modal instead of showing bg controls on page
-      openStampModal();
-
-      URL.revokeObjectURL(tempUrl);
-    }
+    await handleSelectedStampFile(file, { openModal: true });
+    e.target.value = '';
   });
 
   // Modal event listeners
@@ -740,6 +749,10 @@ function attachEventListeners() {
   });
 
   el('modal-confirm-btn')?.addEventListener('click', () => {
+    saveCurrentStampToMemory();
+    addToStampLibrary(stampSrc, stampFileNameStr || 'Stamp');
+    renderWorkspaceStampList();
+    drawVirtualStamps();
     closeStampModal();
   });
 
@@ -749,6 +762,7 @@ function attachEventListeners() {
       await removeBackground(bgRemovalColor, bgRemovalTolerance);
       saveCurrentStampToMemory();
       addToStampLibrary(stampSrc, stampFileNameStr || 'Stamp');
+      renderWorkspaceStampList();
       showToast(t('toast_bg_removed'));
       // Update modal preview
       const modalPreview = el('modal-stamp-preview');
@@ -942,6 +956,19 @@ function attachEventListeners() {
     } else {
       renderPage(currentNum);
     }
+  });
+
+  // Workspace stamp upload
+  el('workspace-add-stamp-btn')?.addEventListener('click', () => {
+    el('workspace-stamp-upload')?.click();
+  });
+
+  el('workspace-stamp-upload')?.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    await handleSelectedStampFile(file, { openModal: true });
+    el('stamp-selector-dropdown')?.classList.add('hidden');
+    drawVirtualStamps();
+    e.target.value = '';
   });
 
   // Stamp selector dropdown
