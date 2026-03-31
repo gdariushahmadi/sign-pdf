@@ -18,8 +18,8 @@
   <link rel="icon" href="/sign-pdf/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/sign-pdf/icon.svg">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <script type="module" crossorigin src="/sign-pdf/assets/index-DhYVuD1v.js"></script>
-  <link rel="stylesheet" crossorigin href="/sign-pdf/assets/index-1MBCvffW.css">
+  <script type="module" crossorigin src="/sign-pdf/assets/index-_HwumO-q.js"></script>
+  <link rel="stylesheet" crossorigin href="/sign-pdf/assets/index-SjfCu0zK.css">
 </head>
 
 <body>
@@ -290,10 +290,6 @@
       <section id="workspace-section" class="workspace hidden">
         <div class="toolbar glass-effect fade-in">
           <p class="instruction" data-i18n="instruction_add">Click on pages to add stamps.</p>
-          <div id="stamp-confirm-area" class="stamp-confirm-area hidden">
-            <button id="confirm-stamp-btn" class="btn primary-btn" data-i18n="confirm_stamp">Confirm</button>
-            <button id="cancel-stamp-btn" class="btn secondary-btn" data-i18n="cancel_stamp">Cancel</button>
-          </div>
           <div class="stamp-selector" id="stamp-selector">
             <button id="stamp-selector-btn" class="btn secondary-btn" title="Select Stamp">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -361,7 +357,7 @@
 
     <!-- Stamp Settings Modal -->
     <div id="stamp-settings-modal" class="modal hidden">
-      <div class="modal-backdrop"></div>
+      <div class="modal-backdrop" id="modal-backdrop"></div>
       <div class="modal-content glass-effect">
         <div class="modal-header">
           <h2 data-i18n="stamp_settings_title">Stamp Settings</h2>
@@ -370,21 +366,33 @@
         <div class="modal-body">
           <div class="stamp-preview-large">
             <img id="modal-stamp-preview" src="" alt="Stamp preview" />
+            <div id="modal-loading-spinner" class="modal-loading hidden">
+              <div class="spinner"></div>
+              <span data-i18n="processing">Processing...</span>
+            </div>
           </div>
           <div class="bg-removal-controls">
-            <div class="bg-removal-row">
-              <label data-i18n="bg_removal_color">Background Color:</label>
-              <input type="color" id="modal-bg-color-picker" value="#ffffff" />
-              <span id="modal-bg-color-hex">#ffffff</span>
-              <button id="modal-preview-bg-btn" class="btn secondary-btn" data-i18n="preview_bg">Preview</button>
+            <div class="bg-removal-row bg-toggle-row">
+              <label class="toggle-label" for="modal-auto-bg-toggle">
+                <span data-i18n="auto_remove_bg">Auto Remove Background</span>
+              </label>
+              <label class="toggle-switch">
+                <input type="checkbox" id="modal-auto-bg-toggle" checked />
+                <span class="toggle-slider"></span>
+              </label>
             </div>
-            <div class="bg-removal-row">
-              <label data-i18n="bg_tolerance">Tolerance:</label>
-              <input type="range" id="modal-bg-tolerance" min="0" max="100" value="30" />
-              <span id="modal-bg-tolerance-val">30</span>
+            <div id="bg-settings-panel">
+              <div class="bg-removal-row">
+                <label data-i18n="bg_removal_color">Background Color:</label>
+                <input type="color" id="modal-bg-color-picker" value="#ffffff" />
+                <span id="modal-bg-color-hex">#ffffff</span>
+              </div>
+              <div class="bg-removal-row">
+                <label data-i18n="bg_tolerance">Tolerance:</label>
+                <input type="range" id="modal-bg-tolerance" min="0" max="100" value="30" />
+                <span id="modal-bg-tolerance-val">30</span>
+              </div>
             </div>
-            <button id="modal-remove-bg-btn" class="btn secondary-btn full-width" data-i18n="remove_bg">Remove Background</button>
-            <button id="modal-reset-bg-btn" class="btn secondary-btn full-width hidden" data-i18n="reset_bg">Reset</button>
           </div>
         </div>
         <div class="modal-footer">

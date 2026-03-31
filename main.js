@@ -95,8 +95,10 @@ const i18n = {
     stamp_settings_title: "Stamp Settings",
     preview_bg: "Preview",
     reset_bg: "Reset",
-    change_stamp: "Change Stamp",
-    add_new_stamp: "Add New Stamp"
+    change_stamp: "Select Stamp",
+    add_new_stamp: "Add New Stamp",
+    auto_remove_bg: "Auto Remove Background",
+    processing: "Processing..."
   },
   fa: {
     app_title: "سند یار — امضا و مُهر زدن روی PDF و تصاویر",
@@ -188,8 +190,10 @@ const i18n = {
     stamp_settings_title: "تنظیمات مُهر",
     preview_bg: "پیش‌نمایش",
     reset_bg: "بازنشانی",
-    change_stamp: "تغییر مُهر",
-    add_new_stamp: "افزودن مُهر جدید"
+    change_stamp: "انتخاب مُهر",
+    add_new_stamp: "افزودن مُهر جدید",
+    auto_remove_bg: "حذف خودکار پس‌زمینه",
+    processing: "در حال پردازش..."
   }
 };
 
@@ -300,9 +304,6 @@ let stamps = [];
 // Stamp library stored in localStorage
 const MAX_STAMP_LIBRARY = 20;
 let stampLibrary = [];
-
-// Pending stamp for two-step confirmation
-let pendingStamp = null; // { x, y, width, height, id }
 
 // Background removal settings
 let bgRemovalColor = '#ffffff';
@@ -591,16 +592,6 @@ function saveCurrentStampToMemory() {
   localStorage.setItem('saved_stamp_name', stampFileNameStr || 'Stamp');
 }
 
-function confirmPendingStamp() {
-  if (!pendingStamp) return;
-  stamps.push({ ...pendingStamp, pageNum: currentNum, id: Date.now() });
-  pendingStamp = null;
-  el('stamp-confirm-area')?.classList.add('hidden');
-  document.querySelectorAll('.stamp-overlay.pending').forEach((node) => node.remove());
-  drawVirtualStamps();
-  showToast(t('toast_stamp_added'));
-}
-
 function resetWorkspace() {
   pdfBytes = null;
   pdfFileNameStr = null;
@@ -615,7 +606,6 @@ function resetWorkspace() {
   if (fn) fn.textContent = t('select_pdf');
 
   stamps = [];
-  pendingStamp = null;
   currentNum = 1;
   totalNum = 0;
   zoom = 1.0;
@@ -628,7 +618,6 @@ function resetWorkspace() {
   el('landing-page')?.classList.remove('hidden');
   el('app')?.classList.remove('workspace-active');
   el('reset-btn')?.classList.add('hidden');
-  el('stamp-confirm-area')?.classList.add('hidden');
 
   const downBtn = el('download-btn');
   if (downBtn) {
@@ -698,8 +687,10 @@ function attachEventListeners() {
     });
 
     activateStamp(dataUrl, file.name);
-    addToStampLibrary(dataUrl, file.name);
-    renderWorkspaceStampList();
+    if (!openModal) {
+      addToStampLibrary(dataUrl, file.name);
+      renderWorkspaceStampList();
+    }
     checkReady();
 
     if (openModal) {
@@ -734,9 +725,13 @@ function attachEventListeners() {
   });
 
   el('stamp-upload')?.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    await handleSelectedStampFile(file, { openModal: true });
-    e.target.value = '';
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
+      await handleSelectedStampFile(file, { openModal: true });
+    } finally {
+      if (e.target) e.target.value = '';
+    }
   });
 
   // Modal event listeners
@@ -795,21 +790,72 @@ function attachEventListeners() {
     if (val) val.textContent = e.target.value;
   });
 
+  el('modal-bg-color-picker')?.addEventListener('change', async (e) => {
+    await applyBackgroundRemoval();
+  });
+
+  el('modal-bg-tolerance')?.addEventListener('change', async (e) => {
+    await applyBackgroundRemoval();
+  });
+
+  el('modal-auto-bg-toggle')?.addEventListener('change', async (e) => {
+    if (e.target.checked) {
+      await applyBackgroundRemoval();
+    } else {
+      resetToOriginalStamp();
+    }
+  });
+
   // Modal functions
   let originalStampSrc = null; // Store original stamp for reset
   let originalStampBytes = null; // Store original bytes for reset
+  let originalStampType = null;
+  let isProcessingBg = false;
 
-  function openStampModal() {
+  async function applyBackgroundRemoval() {
+    if (isProcessingBg) return;
+    const autoToggle = el('modal-auto-bg-toggle');
+    if (!autoToggle || !autoToggle.checked) return;
+    if (!originalStampBytes) return;
+
+    stampImageBytes = new Uint8Array(originalStampBytes);
+    stampType = originalStampType; 
+    
+    isProcessingBg = true;
+    const spinner = el('modal-loading-spinner');
+    const preview = el('modal-stamp-preview');
+    if(spinner) spinner.classList.remove('hidden');
+
+    try {
+      await removeBackground(bgRemovalColor, bgRemovalTolerance);
+      if (preview && stampSrc) {
+        preview.src = stampSrc;
+      }
+    } catch (e) {
+      console.error('BG removal failed:', e);
+    } finally {
+      if(spinner) spinner.classList.add('hidden');
+      isProcessingBg = false;
+    }
+  }
+
+  async function openStampModal() {
     const modal = el('stamp-settings-modal');
     const preview = el('modal-stamp-preview');
     originalStampSrc = stampSrc; // Save original
     originalStampBytes = stampImageBytes ? new Uint8Array(stampImageBytes) : null;
+    originalStampType = stampType;
     if (preview && stampSrc) {
       preview.src = stampSrc;
     }
     // Hide reset button initially
     el('modal-reset-bg-btn')?.classList.add('hidden');
     modal?.classList.remove('hidden');
+
+    const autoToggle = el('modal-auto-bg-toggle');
+    if (autoToggle && autoToggle.checked) {
+      await applyBackgroundRemoval();
+    }
   }
 
   function closeStampModal() {
@@ -873,23 +919,14 @@ function attachEventListeners() {
     if (originalStampBytes) {
       stampImageBytes = new Uint8Array(originalStampBytes);
     }
+    if (originalStampType) {
+      stampType = originalStampType;
+    }
     const preview = el('modal-stamp-preview');
     if (preview) preview.src = originalStampSrc;
     // Hide reset button
     el('modal-reset-bg-btn')?.classList.add('hidden');
   }
-
-  // Stamp confirm/cancel buttons
-  el('confirm-stamp-btn')?.addEventListener('click', () => {
-    confirmPendingStamp();
-  });
-
-  el('cancel-stamp-btn')?.addEventListener('click', () => {
-    pendingStamp = null;
-    el('stamp-confirm-area')?.classList.add('hidden');
-    // Remove pending stamp overlay
-    document.querySelectorAll('.stamp-overlay.pending').forEach(el => el.remove());
-  });
 
   el('start-stamping-btn')?.addEventListener('click', () => {
     if ((pdfBytes || imageDoc) && stampImageBytes) {
@@ -964,11 +1001,15 @@ function attachEventListeners() {
   });
 
   el('workspace-stamp-upload')?.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    await handleSelectedStampFile(file, { openModal: true });
-    el('stamp-selector-dropdown')?.classList.add('hidden');
-    drawVirtualStamps();
-    e.target.value = '';
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
+      await handleSelectedStampFile(file, { openModal: true });
+      el('stamp-selector-dropdown')?.classList.add('hidden');
+      drawVirtualStamps();
+    } finally {
+      if (e.target) e.target.value = '';
+    }
   });
 
   // Stamp selector dropdown
@@ -986,20 +1027,9 @@ function attachEventListeners() {
   });
 
   el('canvas-container')?.addEventListener('click', (e) => {
-    // Confirm by clicking the pending preview again
-    if (pendingStamp && e.target.closest('.stamp-overlay.pending')) {
-      confirmPendingStamp();
-      return;
-    }
-
-    // If there's a pending stamp and user clicks elsewhere, cancel previous pending and place new one.
-    if (pendingStamp && !e.target.closest('.stamp-overlay')) {
-      pendingStamp = null;
-      el('stamp-confirm-area')?.classList.add('hidden');
-      document.querySelectorAll('.stamp-overlay.pending').forEach((node) => node.remove());
-    }
-
-    if (e.target.closest('.stamp-overlay')) return;
+    if (e.target.closest('.stamp-overlay')) return; // Ignore clicks on existing stamps
+    
+    // Check if click was inside bounding box but just bubbling, but usually it hits stamp-overlay
     const canvas = el('pdf-render');
     const container = el('canvas-container');
     if (!canvas || !container) return;
@@ -1013,38 +1043,67 @@ function attachEventListeners() {
     const width = STAMP_BASE_WIDTH;
     const height = STAMP_BASE_WIDTH * stampAspectRatio;
 
-    // Two-step: show pending stamp first
-    pendingStamp = {
+    stamps.push({
+      pageNum: currentNum,
       x: x,
       y: y,
       width: width,
       height: height,
-      rotation: 0
-    };
+      rotation: 0,
+      id: Date.now()
+    });
 
-    // Remove any existing pending overlays
-    document.querySelectorAll('.stamp-overlay.pending').forEach(el => el.remove());
-
-    // Draw pending stamp preview (semi-transparent)
-    const wrapper = document.createElement('div');
-    wrapper.className = 'stamp-overlay pending';
-    wrapper.style.width = `${width * zoom}px`;
-    wrapper.style.height = `${height * zoom}px`;
-    wrapper.style.left = `${(x - width / 2) * zoom}px`;
-    wrapper.style.top = `${(y - height / 2) * zoom}px`;
-    wrapper.style.transform = `rotate(0deg)`;
-    wrapper.style.opacity = '0.5';
-
-    const img = document.createElement('img');
-    img.src = stampSrc;
-    wrapper.appendChild(img);
-
-    container.appendChild(wrapper);
-
-    // Show confirm area
-    el('stamp-confirm-area')?.classList.remove('hidden');
-    showToast(t('toast_confirm_first'));
+    drawVirtualStamps();
+    showToast(t('toast_stamp_added'));
   });
+
+  // Swipe to change pages
+  let touchStartX = 0;
+  let touchEndX = 0;
+  let touchStartY = 0;
+  let touchEndY = 0;
+  
+  el('canvas-wrapper')?.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  el('canvas-wrapper')?.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    touchEndY = e.changedTouches[0].screenY;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const wrapper = el('canvas-wrapper');
+    if (!wrapper) return;
+    
+    // Avoid swipe if the user zoomed in and can scroll horizontally
+    if (wrapper.scrollWidth > wrapper.clientWidth + 10) return;
+
+    const swipeThreshold = 50;
+    const verticalThreshold = 50;
+    
+    // Ensure the swipe is mostly horizontal
+    if (Math.abs(touchEndY - touchStartY) > verticalThreshold) return;
+
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swipe Left => Next Page
+      if (currentNum < totalNum) {
+        currentNum++;
+        if (docType === 'image') loadImagePage(currentNum);
+        else renderPage(currentNum);
+      }
+    }
+    if (touchEndX > touchStartX + swipeThreshold) {
+      // Swipe Right => Prev Page
+      if (currentNum > 1) {
+        currentNum--;
+        if (docType === 'image') loadImagePage(currentNum);
+        else renderPage(currentNum);
+      }
+    }
+  }
 
   el('download-btn')?.addEventListener('click', () => {
     if (docType === 'image') {

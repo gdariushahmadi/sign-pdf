@@ -672,6 +672,57 @@ h1, h2, h3, h4, h5, h6 {
   .upload-wrapper {
     grid-template-columns: 1fr;
   }
+
+  /* Make stamp controls more touch-friendly */
+  .stamp-handle {
+    width: 38px;
+    height: 38px;
+    border-width: 3px;
+  }
+  .handle-br {
+    bottom: -19px;
+    right: -19px;
+  }
+  .handle-rot {
+    top: -55px;
+  }
+  .handle-rot::after {
+    height: 25px;
+    top: 36px;
+    width: 3px;
+  }
+  .stamp-delete-btn {
+    width: 32px;
+    height: 32px;
+    top: -16px;
+    left: -16px;
+    font-size: 18px;
+  }
+  html[dir="rtl"] .stamp-delete-btn {
+    right: -16px;
+    left: auto;
+  }
+
+  /* Sticky Bottom Bar for Mobile Pagination */
+  #app.workspace-active .pagination {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--glass-border);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10000;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
+  }
+  #workspace-section {
+    padding-bottom: 70px;
+  }
 }
 
 .card-title {
@@ -764,7 +815,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-backdrop-filter: blur(12px);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   position: relative;
-  z-index: 120;
+  z-index: 1000;
   overflow: visible;
 }
 
@@ -1072,7 +1123,7 @@ html[dir="rtl"] .library-stamp-delete {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  z-index: 200;
+  z-index: 1001;
   background: var(--card-bg);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
@@ -1234,7 +1285,7 @@ html[dir="rtl"] .step-connector {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 300;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
