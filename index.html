@@ -3,21 +3,196 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="theme-color" content="#6d28d9" id="theme-color-meta" />
-  <link rel="manifest" href="./manifest.json" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" id="theme-color-meta" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Sign PDF" />
+  <link rel="manifest" href="/sign-pdf/manifest.json" />
   <title data-i18n="app_title">Sign/Stamp PDF</title>
   <!-- Modern Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
     rel="stylesheet">
-  <link rel="icon" href="./icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="./icon.svg">
-  <script type="module" crossorigin src="./assets/index-CKuRa-MA.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BTdTs0vh.css">
+  <link rel="icon" href="/sign-pdf/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/sign-pdf/icon.svg">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <script type="module" crossorigin src="/sign-pdf/assets/index-DXJZh3_2.js"></script>
+  <link rel="stylesheet" crossorigin href="/sign-pdf/assets/index-JROClQNU.css">
 </head>
 
 <body>
+  <!-- Landing Page -->
+  <div id="landing-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge" data-i18n="hero_badge">Free Online Tool</div>
+        <h1 class="hero-title">
+          <span data-i18n="hero_title_1">Sign & Stamp</span>
+          <span class="gradient-text" data-i18n="hero_title_2">PDFs & Images</span>
+          <span data-i18n="hero_title_3">in Seconds</span>
+        </h1>
+        <p class="hero-subtitle" data-i18n="hero_subtitle">Upload your document, place your stamp or signature, and download the result instantly. No account needed, no server upload — 100% private.</p>
+        <div class="hero-cta">
+          <a href="#tool-section" class="btn primary-btn hero-btn" data-i18n="hero_cta">Get Started — It's Free</a>
+          <a href="#features-section" class="btn secondary-btn hero-btn-outline" data-i18n="hero_learn_more">Learn More</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label" data-i18n="stat_free">Free</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-i18n="stat_browser">Browser</span>
+            <span class="stat-label" data-i18n="stat_no_upload">No Upload</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-i18n="stat_secure">Secure</span>
+            <span class="stat-label" data-i18n="stat_private">Your files never leave your device</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features-section" class="features-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="features_title">Why Choose Doc Signer?</h2>
+          <p class="section-subtitle" data-i18n="features_subtitle">Everything you need to sign documents quickly and securely</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_1_title">100% Private & Secure</h3>
+            <p data-i18n="feature_1_desc">Your files never leave your browser. All processing happens locally on your device.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_2_title">Fast & Easy to Use</h3>
+            <p data-i18n="feature_2_desc">Upload, stamp, download — three simple steps. No registration or installation required.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_3_title">Works with PDFs & Images</h3>
+            <p data-i18n="feature_3_desc">Stamp both PDF documents and image files (JPG, PNG) with the same easy interface.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <polyline points="9 21 3 21 3 15"></polyline>
+                <line x1="21" y1="3" x2="14" y2="10"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_4_title">Drag, Resize & Rotate</h3>
+            <p data-i18n="feature_4_desc">Full control over stamp placement. Move, resize, and rotate stamps exactly where you need them.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_5_title">Multi-Page PDF Support</h3>
+            <p data-i18n="feature_5_desc">Navigate through all pages of your PDF and place stamps on any or all pages.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="feature_6_title">Instant Download</h3>
+            <p data-i18n="feature_6_desc">Get your signed document immediately as a PDF or PNG, ready to share or print.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="howto-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="howto_title">How It Works</h2>
+          <p class="section-subtitle" data-i18n="howto_subtitle">Three simple steps to sign your document</p>
+        </div>
+        <div class="steps-container">
+          <div class="step-item">
+            <div class="step-number">1</div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="step_1_title">Upload Your Document</h3>
+            <p data-i18n="step_1_desc">Drop a PDF file or an image (JPG, PNG) into the upload area.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-item">
+            <div class="step-number">2</div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+            <h3 data-i18n="step_2_title">Place Your Stamp</h3>
+            <p data-i18n="step_2_desc">Click anywhere on the document to add your stamp. Drag, resize, and rotate it.</p>
+          </div>
+          <div class="step-connector"></div>
+          <div class="step-item">
+            <div class="step-number">3</div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <h3 data-i18n="step_3_title">Download Result</h3>
+            <p data-i18n="step_3_desc">Click download to get your stamped PDF or image instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tool Section (existing app) -->
+    <section id="tool-section" class="tool-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="tool_title">Try It Now</h2>
+          <p class="section-subtitle" data-i18n="tool_subtitle">Upload your document and start stamping in seconds</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
   <div id="app">
     <header class="navbar glass-effect fade-in">
       <div class="logo">
@@ -30,6 +205,22 @@
         <h1 data-i18n="app_name">Doc Signer</h1>
       </div>
       <div class="actions">
+        <button id="theme-btn" class="btn secondary-btn icon-btn theme-toggle" title="Toggle Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-dark">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-light" style="display:none">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
         <button id="lang-btn" class="btn secondary-btn icon-btn" title="Change Language / تغییر زبان">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -53,7 +244,7 @@
           <div class="upload-wrapper">
 
             <div class="upload-box" id="pdf-upload-box" tabindex="0">
-              <input type="file" id="pdf-upload" accept="application/pdf" title="Select PDF" />
+              <input type="file" id="pdf-upload" accept="application/pdf,image/png,image/jpeg,image/jpg" title="Select PDF or Image" />
               <div class="icon-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
@@ -82,6 +273,13 @@
             </div>
 
           </div>
+
+
+          <!-- Stamp Library -->
+          <div id="stamp-library" class="stamp-library hidden">
+            <h3 class="library-title" data-i18n="stamp_library">Stamp Library</h3>
+            <div id="stamp-library-grid" class="stamp-library-grid"></div>
+          </div>
           <button id="start-stamping-btn" class="btn primary-btn full-width disabled mt-4" disabled
             data-i18n="start_stamping">Start Stamping</button>
         </div>
@@ -91,8 +289,28 @@
       <section id="workspace-section" class="workspace hidden">
         <div class="toolbar glass-effect fade-in">
           <p class="instruction" data-i18n="instruction_add">Click on pages to add stamps.</p>
+          <div id="stamp-confirm-area" class="stamp-confirm-area hidden">
+            <button id="confirm-stamp-btn" class="btn primary-btn" data-i18n="confirm_stamp">Confirm</button>
+            <button id="cancel-stamp-btn" class="btn secondary-btn" data-i18n="cancel_stamp">Cancel</button>
+          </div>
+          <div class="stamp-selector" id="stamp-selector">
+            <button id="stamp-selector-btn" class="btn secondary-btn" title="Select Stamp">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+              <span data-i18n="change_stamp">Change Stamp</span>
+            </button>
+            <div id="stamp-selector-dropdown" class="stamp-selector-dropdown hidden">
+              <div id="workspace-stamp-list" class="workspace-stamp-list"></div>
+              <div id="workspace-stamp-empty" class="workspace-stamp-empty hidden">
+                <span data-i18n="empty_library">Library is empty</span>
+              </div>
+            </div>
+          </div>
           <div class="pagination">
-            <button id="prev-page-btn" class="btn secondary-btn icon-btn" disabled>
+            <button id="prev-page-btn" class="btn secondary-btn icon-btn" disabled title="Previous Page" data-i18n-title="prev_page">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-chevron-left rtl-flip">
@@ -102,7 +320,7 @@
             <span class="page-info"><span data-i18n="page">Page</span> <span id="page-num"
                 class="dir-ltr-inline">0</span> <span data-i18n="of">of</span> <span id="page-count"
                 class="dir-ltr-inline">0</span></span>
-            <button id="next-page-btn" class="btn secondary-btn icon-btn">
+            <button id="next-page-btn" class="btn secondary-btn icon-btn" title="Next Page" data-i18n-title="next_page">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-chevron-right rtl-flip">
@@ -129,7 +347,67 @@
     </main>
 
     <div id="toast" class="toast hidden" data-i18n="success_toast">Operation Successful</div>
+
+    <!-- Stamp Settings Modal -->
+    <div id="stamp-settings-modal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content glass-effect">
+        <div class="modal-header">
+          <h2 data-i18n="stamp_settings_title">Stamp Settings</h2>
+          <button id="close-stamp-modal" class="modal-close-btn">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="stamp-preview-large">
+            <img id="modal-stamp-preview" src="" alt="Stamp preview" />
+          </div>
+          <div class="bg-removal-controls">
+            <div class="bg-removal-row">
+              <label data-i18n="bg_removal_color">Background Color:</label>
+              <input type="color" id="modal-bg-color-picker" value="#ffffff" />
+              <span id="modal-bg-color-hex">#ffffff</span>
+              <button id="modal-preview-bg-btn" class="btn secondary-btn" data-i18n="preview_bg">Preview</button>
+            </div>
+            <div class="bg-removal-row">
+              <label data-i18n="bg_tolerance">Tolerance:</label>
+              <input type="range" id="modal-bg-tolerance" min="0" max="100" value="30" />
+              <span id="modal-bg-tolerance-val">30</span>
+            </div>
+            <button id="modal-remove-bg-btn" class="btn secondary-btn full-width" data-i18n="remove_bg">Remove Background</button>
+            <button id="modal-reset-bg-btn" class="btn secondary-btn full-width hidden" data-i18n="reset_bg">Reset</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="modal-confirm-btn" class="btn primary-btn" data-i18n="confirm_stamp">Confirm</button>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="var(--primary-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-edit-3">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        <span data-i18n="app_name">Doc Signer</span>
+      </div>
+      <p class="footer-tagline" data-i18n="footer_tagline">Sign and stamp documents directly in your browser. Fast, free, and private.</p>
+      <div class="footer-links">
+        <a href="https://github.com/gdariushahmadi/sign-pdf" target="_blank" rel="noopener" class="footer-link" data-i18n="footer_github">View on GitHub</a>
+        <span class="footer-sep">·</span>
+        <a href="https://github.com/gdariushahmadi/sign-pdf/issues" target="_blank" rel="noopener" class="footer-link">Report Issue</a>
+        <span class="footer-sep">·</span>
+        <a href="https://buymeacoffee.com/mr.dariush" target="_blank" rel="noopener" class="footer-link">Buy Me a Coffee</a>
+        <span class="footer-sep">·</span>
+        <a href="mailto:gdariushahmadi@gmail.com" class="footer-link">gdariushahmadi@gmail.com</a>
+      </div>
+      <p class="footer-copy" data-i18n="footer_copyright">Made with care. Your files never leave your device.</p>
+    </div>
+  </footer>
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -140,6 +418,7 @@
       });
     }
   </script>
+
 </body>
 
 </html>

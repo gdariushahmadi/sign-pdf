@@ -1,17 +1,30 @@
 {
     "name": "Sign/Stamp PDF",
     "short_name": "Sign PDF",
-    "description": "Add stamps and signatures to PDF files directly in your browser",
+    "description": "Add stamps and signatures to PDF files directly in your browser. 100% private, no server upload.",
+    "id": "/",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#f8fafc",
-    "theme_color": "#6d28d9",
+    "orientation": "any",
+    "background_color": "#0f172a",
+    "theme_color": "#1e3a5f",
+    "categories": ["productivity", "utilities"],
     "icons": [
         {
             "src": "/icon.svg",
             "type": "image/svg+xml",
-            "sizes": "192x192 512x512",
+            "sizes": "any",
             "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "New Document",
+            "short_name": "New",
+            "description": "Start signing a new document",
+            "url": "/#tool-section",
+            "icons": [{ "src": "/icon.svg", "sizes": "any" }]
         }
     ]
 }
