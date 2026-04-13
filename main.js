@@ -98,7 +98,19 @@ const i18n = {
     change_stamp: "Select Stamp",
     add_new_stamp: "Add New Stamp",
     auto_remove_bg: "Auto Remove Background",
-    processing: "Processing..."
+    processing: "Processing...",
+    // Statistics
+    stats_title: "Usage Statistics",
+    stats_first_visit: "First Visit",
+    stats_last_visit: "Last Visit",
+    stats_sessions: "Total Sessions",
+    stats_documents: "Documents Processed",
+    stats_pdfs: "PDFs",
+    stats_images: "Images",
+    stats_stamps: "Stamps Added",
+    stats_pages: "Pages Stamped",
+    stats_downloads: "Downloads",
+    stats_clear: "Clear Statistics"
   },
   fa: {
     app_title: "سند یار — امضا و مُهر زدن روی PDF و تصاویر",
@@ -193,7 +205,19 @@ const i18n = {
     change_stamp: "انتخاب مُهر",
     add_new_stamp: "افزودن مُهر جدید",
     auto_remove_bg: "حذف خودکار پس‌زمینه",
-    processing: "در حال پردازش..."
+    processing: "در حال پردازش...",
+    // Statistics
+    stats_title: "آمار استفاده",
+    stats_first_visit: "اولین بازدید",
+    stats_last_visit: "آخرین بازدید",
+    stats_sessions: "تعداد جلسات",
+    stats_documents: "اسناد پردازش شده",
+    stats_pdfs: "فایل‌های PDF",
+    stats_images: "تصاویر",
+    stats_stamps: "مهرهای اضافه شده",
+    stats_pages: "صفحات مُهردار",
+    stats_downloads: "دانلودها",
+    stats_clear: "پاک کردن آمار"
   }
 };
 
@@ -309,6 +333,171 @@ let stampLibrary = [];
 let bgRemovalColor = '#ffffff';
 let bgRemovalTolerance = 30;
 
+// ==================== USAGE STATISTICS ====================
+const USAGE_STATS_KEY = 'app_usage_stats';
+
+function getUsageStats() {
+  try {
+    const data = localStorage.getItem(USAGE_STATS_KEY);
+    if (data) {
+      return JSON.parse(data);
+    }
+  } catch (e) {
+    console.error('Failed to load usage stats:', e);
+  }
+  return {
+    firstVisit: null,
+    lastVisit: null,
+    totalSessions: 0,
+    currentSessionStart: null,
+    documentsProcessed: 0,
+    pdfsProcessed: 0,
+    imagesProcessed: 0,
+    stampsAdded: 0,
+    pagesStamped: 0,
+    downloadsCompleted: 0,
+    sessionCount: 0
+  };
+}
+
+function saveUsageStats(stats) {
+  try {
+    localStorage.setItem(USAGE_STATS_KEY, JSON.stringify(stats));
+  } catch (e) {
+    console.error('Failed to save usage stats:', e);
+  }
+}
+
+function startSession() {
+  const stats = getUsageStats();
+  const now = new Date().toISOString();
+  
+  if (!stats.firstVisit) {
+    stats.firstVisit = now;
+  }
+  
+  stats.lastVisit = now;
+  stats.currentSessionStart = now;
+  stats.totalSessions++;
+  stats.sessionCount++;
+  
+  saveUsageStats(stats);
+}
+
+function trackEvent(eventName, metadata = {}) {
+  const stats = getUsageStats();
+  const timestamp = new Date().toISOString();
+  
+  stats[eventName] = (stats[eventName] || 0) + 1;
+  
+  // Track metadata
+  if (metadata.type) {
+    if (!stats[`${eventName}_by_type`]) {
+      stats[`${eventName}_by_type`] = {};
+    }
+    stats[`${eventName}_by_type`][metadata.type] = 
+      (stats[`${eventName}_by_type`][metadata.type] || 0) + 1;
+  }
+  
+  if (metadata.pages) {
+    stats.pagesStamped += metadata.pages;
+  }
+  
+  saveUsageStats(stats);
+}
+
+function trackDocumentUpload(type) {
+  trackEvent('documentsProcessed', { type });
+  if (type === 'pdf') {
+    trackEvent('pdfsProcessed');
+  } else if (type === 'image') {
+    trackEvent('imagesProcessed');
+  }
+}
+
+function trackStampAdded(pageNum) {
+  trackEvent('stampsAdded', { page: pageNum });
+}
+
+function trackDownload(type) {
+  trackEvent('downloadsCompleted', { type });
+}
+
+function formatStatsForDisplay() {
+  const stats = getUsageStats();
+  const lang = currentLang;
+  
+  const formatDate = (isoString) => {
+    if (!isoString) return '-';
+    const date = new Date(isoString);
+    return date.toLocaleDateString(lang === 'fa' ? 'fa-IR' : 'en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+  
+  const formatNumber = (num) => {
+    if (lang === 'fa') {
+      return num.toString().replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]).toString();
+    }
+    return num.toString();
+  };
+  
+  return {
+    firstVisit: formatDate(stats.firstVisit),
+    lastVisit: formatDate(stats.lastVisit),
+    totalSessions: formatNumber(stats.totalSessions || 0),
+    documentsProcessed: formatNumber(stats.documentsProcessed || 0),
+    pdfsProcessed: formatNumber(stats.pdfsProcessed || 0),
+    imagesProcessed: formatNumber(stats.imagesProcessed || 0),
+    stampsAdded: formatNumber(stats.stampsAdded || 0),
+    pagesStamped: formatNumber(stats.pagesStamped || 0),
+    downloadsCompleted: formatNumber(stats.downloadsCompleted || 0)
+  };
+}
+
+function showStatsModal() {
+  const modal = el('stats-modal');
+  if (modal) {
+    const formatted = formatStatsForDisplay();
+    
+    const setVal = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    };
+    
+    setVal('stats-first-visit', formatted.firstVisit);
+    setVal('stats-last-visit', formatted.lastVisit);
+    setVal('stats-total-sessions', formatted.totalSessions);
+    setVal('stats-documents', formatted.documentsProcessed);
+    setVal('stats-pdfs', formatted.pdfsProcessed);
+    setVal('stats-images', formatted.imagesProcessed);
+    setVal('stats-stamps', formatted.stampsAdded);
+    setVal('stats-pages', formatted.pagesStamped);
+    setVal('stats-downloads', formatted.downloadsCompleted);
+    
+    modal.classList.remove('hidden');
+  }
+}
+
+function closeStatsModal() {
+  const modal = el('stats-modal');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+}
+
+function clearUsageStats() {
+  if (confirm(lang === 'fa' ? 'آیا مطمئن هستید؟ همه آمارها پاک خواهند شد.' : 'Are you sure? All statistics will be cleared.')) {
+    localStorage.removeItem(USAGE_STATS_KEY);
+    showToast(lang === 'fa' ? 'آمار پاک شد' : 'Stats cleared');
+    closeStatsModal();
+  }
+}
+
 // DOM Reference Function
 const el = (id) => document.getElementById(id);
 
@@ -318,6 +507,7 @@ function init() {
   loadStampFromMemory();
   loadStampLibrary();
   attachEventListeners();
+  startSession();
 }
 
 function showToast(message, duration = 3000) {
@@ -713,9 +903,11 @@ function attachEventListeners() {
     if (fileType === 'application/pdf') {
       docType = 'pdf';
       pdfBytes = await file.arrayBuffer();
+      trackDocumentUpload('pdf');
     } else if (fileType.startsWith('image/')) {
       docType = 'image';
       await loadImageDocument(file);
+      trackDocumentUpload('image');
     } else {
       showToast(t('error_loading_pdf'));
       return;
@@ -1050,9 +1242,13 @@ function attachEventListeners() {
       width: width,
       height: height,
       rotation: 0,
-      id: Date.now()
+      id: Date.now(),
+      stampSrc: stampSrc,
+      stampImageBytes: stampImageBytes ? new Uint8Array(stampImageBytes) : null,
+      stampType: stampType
     });
 
+    trackStampAdded(currentNum);
     drawVirtualStamps();
     showToast(t('toast_stamp_added'));
   });
@@ -1112,6 +1308,12 @@ function attachEventListeners() {
       processFinalPDF();
     }
   });
+
+  // Stats modal
+  el('stats-btn')?.addEventListener('click', showStatsModal);
+  el('close-stats-modal')?.addEventListener('click', closeStatsModal);
+  el('stats-modal-backdrop')?.addEventListener('click', closeStatsModal);
+  el('stats-clear-btn')?.addEventListener('click', clearUsageStats);
 }
 
 async function loadImageDocument(file) {
@@ -1266,7 +1468,7 @@ function drawVirtualStamps() {
     wrapper.style.transform = `rotate(${s.rotation}deg)`;
 
     const img = document.createElement('img');
-    img.src = stampSrc;
+    img.src = s.stampSrc || stampSrc;
     wrapper.appendChild(img);
 
     const delBtn = document.createElement('button');
@@ -1392,12 +1594,8 @@ async function processFinalPDF() {
 
   try {
     const pdfDocExport = await PDFDocument.load(pdfBytes);
-    let stampImage;
-    if (stampType === 'image/jpeg' || stampType === 'image/jpg') {
-      stampImage = await pdfDocExport.embedJpg(stampImageBytes);
-    } else {
-      stampImage = await pdfDocExport.embedPng(stampImageBytes);
-    }
+    
+    const embeddedImages = {}; // Cache to avoid re-embedding
 
     const stampsByPage = {};
     for (const s of stamps) {
@@ -1416,6 +1614,19 @@ async function processFinalPDF() {
       const pageRotation = page.getRotation().angle || 0;
 
       for (const s of pageStamps) {
+        const sSrc = s.stampSrc || stampSrc;
+        let stampImage = embeddedImages[sSrc];
+        if (!stampImage) {
+          const sType = s.stampType || stampType;
+          const sBytes = s.stampImageBytes || stampImageBytes;
+          if (sType === 'image/jpeg' || sType === 'image/jpg') {
+            stampImage = await pdfDocExport.embedJpg(sBytes);
+          } else {
+            stampImage = await pdfDocExport.embedPng(sBytes);
+          }
+          embeddedImages[sSrc] = stampImage;
+        }
+
         const stampW = s.width;
         const stampH = s.height;
         const screenCX = s.x;
@@ -1451,6 +1662,7 @@ async function processFinalPDF() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    trackDownload('pdf');
     showToast(t('toast_saved'));
   } catch (e) {
     console.error(e);
@@ -1464,7 +1676,7 @@ async function processFinalPDF() {
   }
 }
 
-function processFinalImage() {
+async function processFinalImage() {
   if (!imageDoc || !stampImageBytes || stamps.length === 0) {
     showToast(t('toast_no_stamp'));
     return;
@@ -1487,16 +1699,18 @@ function processFinalImage() {
     // Draw the original image at full resolution
     ctx.drawImage(imageDoc.canvas, 0, 0);
 
-    // Load stamp image
-    const stampImg = new Image();
-    stampImg.src = stampSrc;
-
-    // Wait for stamp image to load
-    if (!stampImg.complete) {
-      stampImg.onload = () => drawStampsOnImageCanvas(ctx, workCanvas, stampImg);
-    } else {
-      drawStampsOnImageCanvas(ctx, workCanvas, stampImg);
+    // Preload all unique stamp images
+    const uniqueSrcs = [...new Set(stamps.map(s => s.stampSrc || stampSrc))];
+    const preloadedImages = {};
+    for (const src of uniqueSrcs) {
+      preloadedImages[src] = await new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.src = src;
+      });
     }
+
+    drawStampsOnImageCanvas(ctx, workCanvas, preloadedImages);
   } catch (e) {
     console.error(e);
     alert(t('error_exporting'));
@@ -1508,11 +1722,15 @@ function processFinalImage() {
   }
 }
 
-function drawStampsOnImageCanvas(ctx, workCanvas, stampImg) {
+function drawStampsOnImageCanvas(ctx, workCanvas, preloadedImages) {
   const imgWidth = imageDoc.width;
   const imgHeight = imageDoc.height;
 
   for (const s of stamps) {
+    const sSrc = s.stampSrc || stampSrc;
+    const stampImg = preloadedImages[sSrc];
+    if (!stampImg) continue;
+
     // Scale from display coordinates to full image coordinates
     const displayWidth = imgWidth;
     const displayHeight = imgHeight;
@@ -1549,6 +1767,7 @@ function drawStampsOnImageCanvas(ctx, workCanvas, stampImg) {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    trackDownload('image');
     showToast(t('toast_saved'));
 
     const b = el('download-btn');

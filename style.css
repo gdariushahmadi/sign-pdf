@@ -1400,3 +1400,101 @@ html[dir="rtl"] .step-connector {
 .modal .bg-removal-controls {
   margin-top: 0;
 }
+
+/* ===================== USAGE STATISTICS MODAL ===================== */
+.stats-modal-content {
+  max-width: 520px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.stats-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  transition: var(--transition);
+}
+
+.stats-card:hover {
+  border-color: var(--primary-light);
+}
+
+.stats-card.highlight {
+  background: var(--primary-color);
+  border-color: #3182ce;
+}
+
+.stats-card.highlight .stats-icon {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.stats-card.highlight .stats-label,
+.stats-card.highlight .stats-value {
+  color: white;
+}
+
+.stats-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: #93c5fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stats-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.stats-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stats-footer {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  justify-content: center;
+}
+
+#stats-clear-btn {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+#stats-clear-btn:hover {
+  background: #dc2626;
+  color: white;
+}

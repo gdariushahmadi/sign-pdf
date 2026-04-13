@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-    base: '/sign-pdf/',
+    base: './',
     server: {
         port: 8001,
         strictPort: true,
