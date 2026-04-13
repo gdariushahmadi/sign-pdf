@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && npx env-cmd -f .env wrangler pages deploy dist --project-name=sign-pdf --commit-dirty=true",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "env-cmd": "^11.0.0",
     "gh-pages": "^6.3.0",
     "vite": "^7.3.1"
   },
