@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Point to sitemap
+Sitemap: https://gdariushahmadi.github.io/sign-pdf/sitemap.xml
+
+Crawl-delay: 1

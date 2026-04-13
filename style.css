@@ -1498,3 +1498,140 @@ html[dir="rtl"] .step-connector {
   background: #dc2626;
   color: white;
 }
+
+/* ===== FAQ Section ===== */
+.faq-section {
+  background: var(--bg-secondary);
+  padding: 5rem 1rem;
+}
+
+.faq-section .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--card-border);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.25rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  font-family: inherit;
+  transition: color 0.2s;
+}
+
+.faq-question:hover {
+  color: var(--primary-color);
+}
+
+.faq-question span {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  color: var(--text-muted);
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer p {
+  padding-bottom: 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px;
+}
+
+/* ===== Related Tools Section ===== */
+.related-tools {
+  max-width: 900px;
+  margin: 4rem auto 0;
+  text-align: center;
+}
+
+.related-tools h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+.related-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.related-tool-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.related-tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.related-tool-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.related-tool-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.related-tool-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}

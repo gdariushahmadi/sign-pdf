@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electronic Signature Tool - Sign PDFs & Images Instantly | Doc Signer</title>
+  <meta name="description" content="Use our free electronic signature tool to sign PDFs and images instantly in your browser. No upload, no registration, no fees. Add digital signatures to any document." />
+  <meta name="keywords" content="electronic signature tool, digital signature PDF, sign document online, e-signature tool free, sign PDF browser" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://gdariushahmadi.github.io/sign-pdf/pages/electronic-signature.html" />
+  <link rel="icon" href="https://gdariushahmadi.github.io/sign-pdf/icon.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://gdariushahmadi.github.io/sign-pdf/pages/electronic-signature.html" />
+  <meta property="og:title" content="Electronic Signature Tool - Sign PDFs & Images Instantly" />
+  <meta property="og:description" content="Use our free electronic signature tool to sign PDFs and images instantly in your browser. No upload, no registration." />
+
+  <link rel="alternate" hreflang="en" href="https://gdariushahmadi.github.io/sign-pdf/pages/electronic-signature.html" />
+  <link rel="alternate" hreflang="fa" href="https://gdariushahmadi.github.io/sign-pdf/?lang=fa" />
+  <link rel="alternate" hreflang="x-default" href="https://gdariushahmadi.github.io/sign-pdf/pages/electronic-signature.html" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Electronic Signature Tool - Sign PDFs & Images Instantly",
+        "description": "Use our free electronic signature tool to sign PDFs and images instantly in your browser. No upload, no registration.",
+        "author": { "@type": "Person", "name": "Dariush Ahmadi" },
+        "datePublished": "2026-04-13"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is an electronic signature tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An electronic signature tool is a web-based application that allows you to add digital signatures to documents like PDFs and images. It replaces the need for printing and scanning paper documents."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are electronic signatures legally valid?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, electronic signatures are legally binding in most countries including the United States (ESIGN Act), European Union (eIDAS Regulation), and many others. They carry the same legal weight as handwritten signatures."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need software to create an electronic signature?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No, Doc Signer works entirely in your browser. You do not need to install any software. Simply upload your document and signature image, and download the result."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use an electronic signature tool on my phone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Doc Signer is fully responsive and works on mobile phones and tablets. You can sign documents on iOS, Android, or any device with a browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my document safe when using an electronic signature tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Doc Signer processes all documents locally in your browser. Your files never leave your device, so there is no risk of unauthorized access or data breaches."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: #1e293b;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    .article-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-size: 0.875rem; color: #64748b; }
+    .breadcrumb a { color: #3b82f6; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    h1 { font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; line-height: 1.2; }
+    h2 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin: 2rem 0 1rem; }
+    h3 { font-size: 1.25rem; font-weight: 600; color: #334155; margin: 1.5rem 0 0.75rem; }
+    p { margin-bottom: 1rem; color: #475569; }
+    .lead { font-size: 1.125rem; color: #64748b; margin-bottom: 1.5rem; }
+    ul, ol { margin: 1rem 0 1.5rem 1.5rem; color: #475569; }
+    li { margin-bottom: 0.5rem; }
+    .highlight-box { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+    .highlight-box h3 { color: white; margin-top: 0; }
+    .highlight-box p { color: rgba(255,255,255,0.9); margin-bottom: 0; }
+    .cta-section { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; text-align: center; margin: 2rem 0; }
+    .cta-section h3 { margin-top: 0; color: #0f172a; }
+    .cta-section p { color: #64748b; margin-bottom: 1.5rem; }
+    .btn { display: inline-block; padding: 0.875rem 2rem; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(59,130,246,0.4); }
+    .faq-item { border-bottom: 1px solid #e2e8f0; padding: 1rem 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question { font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; }
+    .faq-answer { color: #64748b; }
+    .related-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
+    .related-link { background: #f8fafc; padding: 1rem; border-radius: 8px; text-decoration: none; color: #3b82f6; font-weight: 500; transition: background 0.2s; }
+    .related-link:hover { background: #e2e8f0; }
+    .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2rem; }
+    .tag { background: #e2e8f0; color: #475569; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; }
+    @media (max-width: 640px) { h1 { font-size: 1.75rem; } .article-card { padding: 2rem 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article class="article-card">
+      <nav class="breadcrumb">
+        <a href="https://gdariushahmadi.github.io/sign-pdf/">Home</a>
+        <span>&rsaquo;</span>
+        <span>Electronic Signature Tool</span>
+      </nav>
+
+      <h1>Electronic Signature Tool: Sign PDFs & Images in Your Browser</h1>
+      <p class="lead">Learn how to use an electronic signature tool to sign PDF documents and images instantly. No upload, no registration, no software installation required.</p>
+
+      <h2>What Is an Electronic Signature?</h2>
+      <p>An electronic signature, or e-signature, is a digital version of your handwritten signature that can be attached to electronic documents. It serves the same legal and practical purpose as a traditional signature but can be created, attached, and transmitted entirely digitally.</p>
+      <p>Under laws like the U.S. ESIGN Act (2000) and the EU eIDAS Regulation, electronic signatures carry the same legal validity as handwritten signatures in most contexts. This has made them widely adopted in business, legal, and personal document workflows.</p>
+
+      <div class="highlight-box">
+        <h3>Legal Recognition</h3>
+        <p>Electronic signatures are legally binding in over 60 countries worldwide, including the United States, all European Union member states, United Kingdom, Canada, Australia, and many more.</p>
+      </div>
+
+      <h2>How to Use the Electronic Signature Tool</h2>
+      <p>Doc Signer provides a free, browser-based electronic signature tool that anyone can use:</p>
+
+      <h3>1. Prepare Your Signature</h3>
+      <p>Create a digital version of your signature by taking a photo of your handwritten signature on white paper, or using a graphics tablet to draw it. Save it as a PNG or JPG image with a transparent or white background.</p>
+
+      <h3>2. Upload Your Document</h3>
+      <p>Open Doc Signer in your browser and upload the PDF or image you need to sign. The tool supports multi-page PDFs, allowing you to sign any or all pages.</p>
+
+      <h3>3. Place Your Signature</h3>
+      <p>Click anywhere on the document to place your signature. You can drag it to the right position, resize it to fit the space, and rotate it if needed. The tool lets you preview exactly how the signature will look before downloading.</p>
+
+      <h3>4. Download the Signed Document</h3>
+      <p>Once you are satisfied with the placement, click the download button to save your signed document. The tool exports the result as a PDF file, preserving all original formatting and quality.</p>
+
+      <h2>Benefits of Using an Online Electronic Signature Tool</h2>
+      <ul>
+        <li><strong>Instant results</strong> — Sign and download documents in seconds, no waiting for email responses</li>
+        <li><strong>Works anywhere</strong> — Access from any device with a browser, no specific software required</li>
+        <li><strong>Cost-free</strong> — No subscription fees or per-signature charges</li>
+        <li><strong>Environmentally friendly</strong> — Eliminate paper printing and shipping</li>
+        <li><strong>Audit trail</strong> — Digital signatures can include timestamps and verification metadata</li>
+        <li><strong>Mobile-friendly</strong> — Sign documents on your smartphone or tablet</li>
+      </ul>
+
+      <h2>Types of Documents You Can Sign Electronically</h2>
+      <p>Almost any document that traditionally requires a signature can be signed electronically:</p>
+      <ul>
+        <li>Contracts and agreements</li>
+        <li>Invoices and purchase orders</li>
+        <li>Employment documents and offer letters</li>
+        <li>Lease agreements</li>
+        <li>Tax forms and government documents</li>
+        <li>Medical consent forms</li>
+        <li>Educational enrollment documents</li>
+        <li>Financial account opening forms</li>
+      </ul>
+
+      <h2>Security and Privacy Considerations</h2>
+      <p>When choosing an electronic signature tool, security should be a top priority. Doc Signer addresses these concerns by processing all documents locally in your browser. Your files never leave your device, eliminating the risk of data breaches or unauthorized access that can occur with cloud-based services.</p>
+      <p>Unlike traditional email or cloud storage where documents pass through multiple servers, Doc Signer keeps your sensitive documents entirely under your control throughout the signing process.</p>
+
+      <h2>Creating a Professional Electronic Signature</h2>
+      <p>For the best results with your electronic signature:</p>
+      <ol>
+        <li>Use a high-resolution image (300 DPI or higher) for a crisp, professional appearance</li>
+        <li>Choose PNG format with a transparent background for versatility</li>
+        <li>Sign on plain white paper with a blue or black pen for maximum clarity</li>
+        <li>Sign slightly larger than your usual signature to ensure all details are captured</li>
+        <li>Save multiple versions (full name, initials, company stamp) for different use cases</li>
+      </ol>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question">What is an electronic signature tool?</div>
+        <div class="faq-answer">An electronic signature tool is a web-based application that allows you to add digital signatures to documents like PDFs and images. It replaces the need for printing and scanning paper documents.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Are electronic signatures legally valid?</div>
+        <div class="faq-answer">Yes, electronic signatures are legally binding in most countries including the United States (ESIGN Act), European Union (eIDAS Regulation), and many others. They carry the same legal weight as handwritten signatures.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Do I need software to create an electronic signature?</div>
+        <div class="faq-answer">No, Doc Signer works entirely in your browser. You do not need to install any software. Simply upload your document and signature image, and download the result.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Can I use an electronic signature tool on my phone?</div>
+        <div class="faq-answer">Yes, Doc Signer is fully responsive and works on mobile phones and tablets. You can sign documents on iOS, Android, or any device with a browser.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Is my document safe when using an electronic signature tool?</div>
+        <div class="faq-answer">Doc Signer processes all documents locally in your browser. Your files never leave your device, so there is no risk of unauthorized access or data breaches.</div>
+      </div>
+
+      <div class="cta-section">
+        <h3>Start Signing Electronically Today</h3>
+        <p>Use Doc Signer to add electronic signatures to your PDF documents. Free, instant, and 100% private.</p>
+        <a href="https://gdariushahmadi.github.io/sign-pdf/" class="btn">Use Electronic Signature Tool</a>
+      </div>
+
+      <h2>Related Tools</h2>
+      <div class="related-links">
+        <a href="https://gdariushahmadi.github.io/sign-pdf/pages/sign-pdf-online.html" class="related-link">Sign PDF Online Free</a>
+        <a href="https://gdariushahmadi.github.io/sign-pdf/pages/stamp-pdf-free.html" class="related-link">Free PDF Stamping</a>
+        <a href="https://gdariushahmadi.github.io/sign-pdf/pages/how-to-sign-pdf.html" class="related-link">How to Sign PDF</a>
+      </div>
+
+      <div class="tags">
+        <span class="tag">Electronic Signature</span>
+        <span class="tag">Digital Signature</span>
+        <span class="tag">Sign PDF Tool</span>
+        <span class="tag">E-Signature</span>
+        <span class="tag">Free Tool</span>
+        <span class="tag">Browser Based</span>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

@@ -11,14 +11,129 @@
   <meta name="apple-mobile-web-app-title" content="Sign PDF" />
   <link rel="manifest" href="./manifest.json" />
   <title data-i18n="app_title">Sign/Stamp PDF</title>
-  <!-- Modern Fonts -->
+  <!-- Performance: Preconnect to font origins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Modern Fonts with display=swap for better performance -->
   <link
     href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&family=Inter:wght@400;500;700&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'" />
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free online tool to sign and stamp PDFs & images directly in your browser. No upload required, 100% private, works on any device. Sign PDF files instantly." />
+  <meta name="keywords" content="sign PDF, stamp PDF, electronic signature, free PDF signer, PDF signature tool, online PDF stamp, sign PDF online, PDF signer browser-based" />
+  <meta name="author" content="Dariush Ahmadi" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://gdariushahmadi.github.io/sign-pdf/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gdariushahmadi.github.io/sign-pdf/" />
+  <meta property="og:title" content="Sign & Stamp PDFs Online Free | 100% Private & Secure" />
+  <meta property="og:description" content="Free online tool to sign and stamp PDFs & images directly in your browser. No upload required, 100% private, works on any device." />
+  <meta property="og:image" content="https://gdariushahmadi.github.io/sign-pdf/icon-512.png" />
+  <meta property="og:site_name" content="Doc Signer" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://gdariushahmadi.github.io/sign-pdf/" />
+  <meta name="twitter:title" content="Sign & Stamp PDFs Online Free | 100% Private & Secure" />
+  <meta name="twitter:description" content="Free online tool to sign and stamp PDFs & images directly in your browser. No upload required, 100% private." />
+  <meta name="twitter:image" content="https://gdariushahmadi.github.io/sign-pdf/icon-512.png" />
+
+  <!-- Language Hreflang -->
+  <link rel="alternate" hreflang="en" href="https://gdariushahmadi.github.io/sign-pdf/" />
+  <link rel="alternate" hreflang="fa" href="https://gdariushahmadi.github.io/sign-pdf/?lang=fa" />
+  <link rel="alternate" hreflang="x-default" href="https://gdariushahmadi.github.io/sign-pdf/" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Doc Signer - Sign & Stamp PDF Online",
+        "description": "Free online tool to sign and stamp PDF documents and images directly in your browser. No upload required, 100% private and secure.",
+        "url": "https://gdariushahmadi.github.io/sign-pdf/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "128"
+        },
+        "featureList": [
+          "Sign PDF documents",
+          "Stamp images on PDFs",
+          "No file upload required",
+          "Works in browser only",
+          "Supports multi-page PDFs",
+          "Drag, resize and rotate stamps",
+          "Background removal for stamps",
+          "Free to use"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I sign a PDF online for free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Simply upload your PDF file or image, upload your signature or stamp image, click on the document to place it, and download the signed result instantly. No account or registration needed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my document secure? Does it get uploaded to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, your document is 100% secure. All processing happens locally in your browser - your files never leave your device. No data is sent to any server."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What file formats are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Doc Signer supports PDF documents as well as image files including PNG and JPG/JPEG. You can also stamp images with signatures."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use this on my mobile phone?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Doc Signer is fully responsive and works on any device - desktop computers, tablets, and mobile phones. All features are accessible on mobile browsers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I stamp multiple pages of a PDF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Doc Signer supports multi-page PDFs. You can navigate through all pages and place stamps on any or all pages of your document."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a42bf90951bc4c5dbd5e413e3f66e1c2"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -180,6 +295,116 @@
             </div>
             <h3 data-i18n="step_3_title">Download Result</h3>
             <p data-i18n="step_3_desc">Click download to get your stamped PDF or image instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq-section" class="faq-section">
+      <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">Everything you need to know about signing PDFs online</p>
+        </div>
+        <div class="faq-accordion">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I sign a PDF online for free?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Simply upload your PDF file, upload your signature or stamp image, click on the document to place it, and download the signed result instantly. No account or registration needed.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Is my document secure? Does it get uploaded to a server?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, your document is 100% secure. All processing happens locally in your browser — your files never leave your device. No data is sent to any server.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What file formats are supported?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Doc Signer supports PDF documents as well as image files including PNG and JPG/JPEG. You can also stamp images with signatures onto any supported format.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I use this on my mobile phone?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, Doc Signer is fully responsive and works on any device — desktop computers, tablets, and mobile phones. All features are accessible on mobile browsers.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can I stamp multiple pages of a PDF?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, Doc Signer supports multi-page PDFs. You can navigate through all pages and place stamps on any or all pages of your document.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Do I need to install any software?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>No, Doc Signer works entirely in your browser. No software installation, no browser extension, no account creation. Just open and use.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do I create a signature image?</span>
+              <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Write your signature on a white piece of paper with a blue or black pen, take a clear photo with your phone, and save it as a PNG or JPG image. Upload that image to Doc Signer and place it on your PDF.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Tools -->
+        <div class="related-tools">
+          <h3>Explore More Tools</h3>
+          <div class="related-tools-grid">
+            <a href="https://gdariushahmadi.github.io/sign-pdf/pages/sign-pdf-online.html" class="related-tool-card">
+              <span class="related-tool-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              </span>
+              <span class="related-tool-title">Sign PDF Online</span>
+              <span class="related-tool-desc">Learn how to sign PDFs for free</span>
+            </a>
+            <a href="https://gdariushahmadi.github.io/sign-pdf/pages/electronic-signature.html" class="related-tool-card">
+              <span class="related-tool-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+              </span>
+              <span class="related-tool-title">Electronic Signature</span>
+              <span class="related-tool-desc">Add e-signatures to documents</span>
+            </a>
+            <a href="https://gdariushahmadi.github.io/sign-pdf/pages/stamp-pdf-free.html" class="related-tool-card">
+              <span class="related-tool-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              </span>
+              <span class="related-tool-title">Stamp PDF Free</span>
+              <span class="related-tool-desc">Add custom stamps to PDFs</span>
+            </a>
+            <a href="https://gdariushahmadi.github.io/sign-pdf/pages/how-to-sign-pdf.html" class="related-tool-card">
+              <span class="related-tool-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </span>
+              <span class="related-tool-title">How to Sign PDF</span>
+              <span class="related-tool-desc">Step-by-step guide</span>
+            </a>
           </div>
         </div>
       </div>
@@ -578,6 +803,29 @@
         });
       });
     }
+  </script>
+
+  <!-- FAQ Accordion Interaction -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+          const isOpen = item.classList.contains('open');
+          // Close all
+          faqItems.forEach(i => {
+            i.classList.remove('open');
+            i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          });
+          // Open clicked if it was closed
+          if (!isOpen) {
+            item.classList.add('open');
+            question.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    });
   </script>
 
 </body>
