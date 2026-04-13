@@ -1,16 +1,16 @@
 const CACHE_NAME = 'sign-pdf-v2';
-const OFFLINE_URL = '/offline.html';
+const OFFLINE_URL = './offline.html';
 
 const ASSETS = [
-    '/',
-    '/index.html',
-    '/manifest.json',
-    '/icon.svg',
-    '/icon-192.png',
-    '/icon-512.png',
-    '/style.css',
-    '/main.js',
-    '/offline.html'
+    './',
+    './index.html',
+    './manifest.json',
+    './icon.svg',
+    './icon-192.png',
+    './icon-512.png',
+    './style.css',
+    './main.js',
+    './offline.html'
 ];
 
 self.addEventListener('install', (evt) => {
@@ -52,7 +52,7 @@ self.addEventListener('fetch', (evt) => {
         caches.match(evt.request).then((res) => {
             return res || fetch(evt.request).catch(() => {
                 if (evt.request.destination === 'image') {
-                    return caches.match('/icon.svg');
+                    return caches.match('./icon.svg');
                 }
             });
         })
